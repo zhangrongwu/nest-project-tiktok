@@ -15,11 +15,21 @@
 // .getMusicInfo('https://www.tiktok.com/music/original-sound-6801885499343571718', options) // Get music metadata
 
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, ArgumentMetadata, BadRequestException } from '@nestjs/common';
+import { ObjectSchema } from '@hapi/joi';
+
 const TikTokScraper = require("tiktok-scraper");
 
 @Injectable()
 export class AppService {
+  // constructor(private schema: ObjectSchema) {}
+  // transform(value: any, metadata: ArgumentMetadata) {
+  //   const { error } = this.schema.validate(value);
+  //   if (error) {
+  //     throw new BadRequestException('Validation failed');
+  //   }
+  //   return value;
+  // }
   getHello(): string {
     return 'Hello World!';
   }
@@ -90,6 +100,10 @@ export class AppService {
       return await TikTokScraper.getVideoMeta(url, options);
     } catch (error) {
       console.log("错误" , error);
+      throw new HttpException({
+        status: HttpStatus.GATEWAY_TIMEOUT,
+        error: error,
+      }, HttpStatus.GATEWAY_TIMEOUT);
       return null;
     }
   }

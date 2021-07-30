@@ -1,6 +1,6 @@
-import { Controller, Get, Post, HttpCode, Header, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Header, Param, Body, Query, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-
+import { Roles } from './roles.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -26,6 +26,7 @@ export class AppController {
   // 获取视频流
   @Post('getmetadata')
   @Header('Cache-Control', 'none')
+  @Roles('admin')
   getMetadata(@Body() info: any): any {
     return this.appService.getMetadata(info.url);
   }
