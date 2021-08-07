@@ -10,7 +10,7 @@ export class UserService {
  
   // 查找所有用户
   async findAll(): Promise<User[]> {
-    const users = await this.userModel.find();
+    const users = await this.userModel.find();  
     return users;
   }
  

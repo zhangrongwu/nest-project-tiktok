@@ -17,7 +17,8 @@ interface UserResponse<T = unknown> {
   message: string;
 }
 
-@Controller('user')
+// 每个控制器有多个路由，不同的路由可以执行不同的操作
+@Controller('user')   
 export class UserController {
   constructor(private readonly userService: UserService) {}
   
@@ -74,8 +75,12 @@ export class UserController {
   }
 
   @Post('login')
-  login(@Body() info: any): any {
-    console.log("登陆信息", info)
-    return info
+  async login(@Body() info: any): Promise<UserResponse> {
+    // 校验
+    return {
+      code: 200,
+      data: info,
+      message: 'Success.'
+    };
   }
 }

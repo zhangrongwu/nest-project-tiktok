@@ -18,7 +18,7 @@
 import { Injectable, HttpException, HttpStatus, ArgumentMetadata, BadRequestException } from '@nestjs/common';
 import { ObjectSchema } from '@hapi/joi';
 
-const TikTokScraper = require("tiktok-scraper");
+// const TikTokScraper = require("tiktok-scraper");
 
 @Injectable()
 export class AppService {
@@ -97,7 +97,7 @@ export class AppService {
 
     console.log("url:", url)
     try {
-      return await TikTokScraper.getVideoMeta(url, options);
+      // return await TikTokScraper.getVideoMeta(url, options);
     } catch (error) {
       console.log("错误" , error);
       throw new HttpException({
